@@ -47,6 +47,8 @@ As conexões, tem "subconexões" que são chamadas de Channels, que acessam as f
 
 autoAck é utilizado somente quando a mensagem pode ser perdida.
 
+Pode ser utilizado um "declare", ele é capaz de criar uma fila automaticamente.
+
 ## Referências
 
 Testify

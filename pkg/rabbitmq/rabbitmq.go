@@ -33,3 +33,20 @@ func Consume(ch *amqp.Channel, out chan<- amqp.Delivery, queue string) error {
 	}
 	return nil
 }
+
+func Publish(ch *amqp.Channel, body string, exName string) error {
+	err := ch.Publish(
+		exName, // Nome da exchange. Necessário fazer um bind na fila
+		"",     //routing key
+		false,
+		false,
+		amqp.Publishing{
+			ContentType: "text/plain",
+			Body:        []byte(body),
+		},
+	)
+	if err != nil {
+		return err
+	}
+	return nil
+}

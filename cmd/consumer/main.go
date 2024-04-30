@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	amqp "github.com/rabbitmq/amqp091-go"
-	"github.com/wandermaia/fcutils/pkg/rabbitmq"
+	"github.com/wandermaia/fc-utils/pkg/rabbitmq"
 )
 
 func main() {
@@ -16,10 +16,11 @@ func main() {
 
 	msgs := make(chan amqp.Delivery)
 
-	go rabbitmq.Consume(ch, msgs, "orders")
+	go rabbitmq.Consume(ch, msgs, "orders") //orders é o nome da fila.
 
+	// loop que fica lendo as mensagens na fila orders do Rabbit
 	for msg := range msgs {
 		fmt.Println(string(msg.Body))
-		msg.Ack(false)
+		msg.Ack(false) // Informando que a mensagem já foi lida e não é para colocar ela na fila novamente.
 	}
 }
