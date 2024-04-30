@@ -1,17 +1,20 @@
 package events
 
-import "time"
+import (
+	"sync"
+	"time"
+)
 
 // Interface para Carregar os dados do evento
 type EventInterface interface {
 	GetName() string
-	GetDate() time.Time
+	GetDateTime() time.Time
 	GetPayload() interface{} // Uma interface vazia para que possa pegar diversos payloads e diversos formatos.
 }
 
 // Interface para criar o executor (handler) das operações do evento.
 type EventHandlerInterface interface {
-	Handle(event EventInterface) //event é uma variável do tipo EventInterface
+	Handle(event EventInterface, wg *sync.WaitGroup) //event é uma variável do tipo EventInterface
 }
 
 // Interface para o gerenciamento dos eventos
